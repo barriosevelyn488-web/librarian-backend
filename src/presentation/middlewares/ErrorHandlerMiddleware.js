@@ -1,11 +1,11 @@
-const {
+import {
   ValidationError,
   NotFoundError,
   ConflictError,
   UnauthorizedError,
   ForbiddenError,
   BusinessRuleError
-} = require('../../domain/errors/DomainErrors');
+} from '../../domain/errors/DomainErrors.js';
 
 /**
  * ErrorHandlerMiddleware
@@ -77,4 +77,4 @@ class ErrorHandlerMiddleware {
   }
 }
 
-module.exports = ErrorHandlerMiddleware;
+export default ErrorHandlerMiddleware;

@@ -1,4 +1,4 @@
-const DatabaseConnection = require('./DatabaseConnection');
+import DatabaseConnection from './DatabaseConnection.js';
 
 class DatabaseInitializer {
   static async initialize() {
@@ -82,4 +82,4 @@ class DatabaseInitializer {
   }
 }
 
-module.exports = DatabaseInitializer;
+export default DatabaseInitializer;

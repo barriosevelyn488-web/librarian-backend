@@ -1,7 +1,7 @@
-const path = require('path');
-const DatabaseConnection = require('./DatabaseConnection');
-const DatabaseInitializer = require('./DatabaseInitializer');
-const BcryptPasswordHasher = require('../security/BcryptPasswordHasher');
+import DatabaseConnection from './DatabaseConnection.js';
+import DatabaseInitializer from './DatabaseInitializer.js';
+import BcryptPasswordHasher from '../security/BcryptPasswordHasher.js';
+import { fileURLToPath } from 'url';
 
 async function seed() {
   console.log('[Seed] Iniciando sembrado de datos iniciales para Acme Store...');
@@ -142,11 +142,11 @@ async function seed() {
   console.log('  Cliente: cliente@acmestore.com / Cliente123!');
 }
 
-if (require.main === module) {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
   seed().catch(err => {
     console.error('Error en seed:', err);
     process.exit(1);
   });
 }
 
-module.exports = seed;
+export default seed;

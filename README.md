@@ -1,24 +1,29 @@
-# Acme Store - Backend REST API (100% POO & Clean Architecture)
+# Acme Store - Backend REST API (100% POO, SOLID y Clean Architecture)
 
-API REST empresarial para la gestión integral de catálogo de libros, préstamos de biblioteca con control de stock, ventas multilibro con comprobante fiscal y pasarela de pago, perfil de usuario con protección de inmutabilidad y módulo de administración y control de acceso basado en roles (RBAC).
+API REST empresarial para la administracion y operacion de libreria y biblioteca virtual: catalogo editorial con sinopsis completa, prestamos con control de inventario y devoluciones, ventas multilibro con comprobante fiscal y pasarela de pago, administracion de usuarios y control de acceso basado en roles (RBAC).
 
-Construido estrictamente bajo **Programación Orientada a Objetos (POO)** y los 5 **Principios SOLID**, garantizando desacoplamiento, alta cohesión y testeabilidad.
+Construido estrictamente bajo **Programacion Orientada a Objetos (POO)** y los 5 **Principios SOLID**, garantizando desacoplamiento, alta cohesion y testeabilidad sin mezclar paradigmas funcionales.
 
 ---
 
-## 🏛️ Arquitectura del Sistema (Clean Architecture)
+## 1. Repositorio Frontend Conectado
+- **Frontend App:** [https://github.com/barriosevelyn488-web/acme-store-frontend](https://github.com/barriosevelyn488-web/acme-store-frontend)
+
+---
+
+## 2. Arquitectura del Sistema (Clean Architecture)
 
 ```
 src/
 ├── domain/                      # Capa Central de Dominio (Sin dependencias externas)
 │   ├── entities/               # Entidades de Negocio con encapsulamiento estricto
 │   │   ├── Book.js             # Entidad Libro con control de stock y sinopsis
-│   │   ├── Loan.js             # Entidad Préstamo con estados (activo, devuelto, retrasado)
-│   │   ├── Sale.js             # Entidad Venta (Cabecera y cálculo total)
+│   │   ├── Loan.js             # Entidad Prestamo con estados (activo, devuelto, retrasado)
+│   │   ├── Sale.js             # Entidad Venta (Cabecera y calculo de total)
 │   │   ├── SaleDetail.js       # Entidad Detalle de Venta (Libro, cantidad, subtotal)
-│   │   └── User.js             # Entidad Usuario con protección de inmutabilidad de ID
+│   │   └── User.js             # Entidad Usuario con proteccion de inmutabilidad de ID
 │   ├── errors/
-│   │   └── DomainErrors.js     # Excepciones de Dominio fuertemente tipadas
+│   │   └── DomainErrors.js     # Jerarquia de Excepciones de Dominio fuertemente tipadas
 │   ├── repositories/           # Interfaces / Contratos de Repositorios (DIP)
 │   │   ├── IBookRepository.js
 │   │   ├── ILoanRepository.js
@@ -27,19 +32,19 @@ src/
 │   └── services/               # Contratos de Servicios de Dominio
 │       └── IPaymentGateway.js  # Interfaz para Estrategia de Pasarelas de Pago (OCP)
 │
-├── application/                 # Capa de Casos de Uso y Orquestación
-│   └── services/               # Servicios de Aplicación (POO)
-│       ├── AuthService.js      # Registro y Login con hashing y generación JWT
-│       ├── BookService.js      # Búsqueda, filtrado y CRUD de catálogo
-│       ├── LoanService.js      # Préstamos, devoluciones e inventario
+├── application/                 # Capa de Casos de Uso y Orquestacion
+│   └── services/               # Servicios de Aplicacion (POO)
+│       ├── AuthService.js      # Registro y Login con hashing y generacion JWT
+│       ├── BookService.js      # Busqueda, filtrado y CRUD de catalogo
+│       ├── LoanService.js      # Prestamos, devoluciones e inventario
 │       ├── SaleService.js      # Ventas multilibro y cobro con pasarela PayPal
-│       ├── ProfileService.js   # Perfil personal (Identificación protegida)
-│       └── UserService.js      # Gestión de usuarios y asignación de roles (Admin)
+│       ├── ProfileService.js   # Perfil personal (Identificacion protegida)
+│       └── UserService.js      # Gestion de usuarios y asignacion de roles (Admin)
 │
-├── infrastructure/              # Capa de Implementación Externa y Persistencia
+├── infrastructure/              # Capa de Implementacion Externa y Persistencia
 │   ├── database/
-│   │   ├── DatabaseConnection.js   # Singleton de conexión SQLite
-│   │   ├── DatabaseInitializer.js  # DDL relacional 3NF e índices
+│   │   ├── DatabaseConnection.js   # Singleton de conexion SQLite
+│   │   ├── DatabaseInitializer.js  # DDL relacional 3NF e indices
 │   │   └── seed.js                 # Sembrado de datos con sinopsis de libros
 │   ├── repositories/           # Implementaciones SQLite de los contratos
 │   │   ├── SqliteBookRepository.js
@@ -48,16 +53,16 @@ src/
 │   │   └── SqliteUserRepository.js
 │   ├── security/
 │   │   ├── BcryptPasswordHasher.js # Cifrado unidireccional con Salt
-│   │   └── JwtTokenService.js      # Firma y verificación de Tokens JWT
+│   │   └── JwtTokenService.js      # Firma y verificacion de Tokens JWT
 │   └── payments/
-│       └── PayPalPaymentGateway.js # Implementación Strategy de pago PayPal
+│       └── PayPalPaymentGateway.js # Implementacion Strategy de pago PayPal
 │
 ├── presentation/                # Capa de Entrega HTTP (Express en POO)
 │   ├── middlewares/            # Middlewares encapsulados en Clases
-│   │   ├── AuthMiddleware.js       # Verificación dual: Cookies HTTP-Only & Bearer
+│   │   ├── AuthMiddleware.js       # Verificacion dual: Cookies HTTP-Only & Bearer
 │   │   ├── RoleMiddleware.js       # Control de acceso RBAC (admin / cliente)
-│   │   ├── RateLimitMiddleware.js  # Protección contra ataques de fuerza bruta
-│   │   └── ErrorHandlerMiddleware.js # Mapeo de errores de dominio a HTTP
+│   │   ├── RateLimitMiddleware.js  # Proteccion contra ataques de fuerza bruta
+│   │   └── ErrorHandlerMiddleware.js # Mapeo de errores de dominio a codigos HTTP
 │   ├── controllers/            # Controladores en Clases
 │   │   ├── AuthController.js
 │   │   ├── BookController.js
@@ -76,86 +81,112 @@ src/
 │
 ├── api/
 │   └── index.js                # Handler Serverless para despliegue en Vercel
-├── bruno/                      # Colección Bruno de pruebas de endpoints
+├── bruno/                      # Coleccion Bruno de pruebas de endpoints
 ├── test/
-│   └── integration.test.js     # Suite de 13 pruebas de integración automatizadas
-└── src/index.js                # Composition Root (Inyección de Dependencias)
+│   └── integration.test.js     # Suite de 13 pruebas de integracion automatizadas
+└── src/index.js                # Composition Root (Inyeccion de Dependencias)
 ```
 
 ---
 
-## 💎 Aplicación de Principios SOLID
+## 3. Base de Datos Relacional SQL (Tercera Forma Normal - 3NF)
 
-1. **S - Single Responsibility Principle (SRP):**
-   - Cada clase responde a una única razón de cambio. Las entidades encapsulan reglas de dominio puras (e.g. `Book.canBeSold()`, `User.attemptChangeIdentificacion()`), los repositorios manejan SQL, y los servicios coordinan los casos de uso.
-2. **O - Open/Closed Principle (OCP):**
-   - El sistema de pagos está basado en la interfaz `IPaymentGateway`. Se implementó `PayPalPaymentGateway`, pero se puede conectar `StripePaymentGateway` o `MercadoPagoGateway` sin alterar una sola línea de `SaleService`.
-3. **L - Liskov Substitution Principle (LSP):**
-   - Cualquier implementación que herede de `IBookRepository`, `IUserRepository` o `IPaymentGateway` es completamente intercambiable sin alterar el comportamiento de la capa de aplicación.
-4. **I - Interface Segregation Principle (ISP):**
-   - Los contratos están atomizados y especializados por entidad y propósito (`IBookRepository`, `ILoanRepository`, `ISaleRepository`, `IUserRepository`).
-5. **D - Dependency Inversion Principle (DIP):**
-   - Las capas superiores no dependen de librerías de bajo nivel. Los servicios de aplicación dependen de interfaces y abstracciones, las cuales son inyectadas en el punto de composición (`BootstrapFactory`).
+El sistema utiliza **SQLite** con motor relacional estructurado en 3NF, garantizando integridad referencial mediante claves foraneas activas (`PRAGMA foreign_keys = ON;`) y reglas de integridad de dominio (`CHECK`, `UNIQUE`, `NOT NULL`):
+
+1. **`usuarios`**: Clave primaria `id_usuario`. Identificacion y email unicos. Rol restringido a `'admin'` o `'cliente'`.
+2. **`libros`**: Clave primaria `id_libro`. ISBN unico. Campos de stock (`stock_total`, `stock_disponible`), precio de venta y columna `resumen TEXT` para la sinopsis completa. Regla `CHECK (stock_disponible <= stock_total)`.
+3. **`prestamos`**: Clave primaria `id_prestamo`. Claves foraneas hacia `usuarios(id_usuario)` y `libros(id_libro)` con restriccion `ON DELETE RESTRICT`. Estados controlados (`'activo'`, `'devuelto'`, `'retrasado'`).
+4. **`ventas`**: Cabecera de venta con clave foranea al cliente y total acumulado.
+5. **`detalle_ventas`**: Detalle transaccional de venta por libro (1 o multiples ejemplares) con clave foranea a `ventas` (`ON DELETE CASCADE`) y a `libros` (`ON DELETE RESTRICT`).
 
 ---
 
-## 🔒 Capas de Seguridad Implementadas
+## 4. Analisis de Ciberseguridad y Mitigacion de Amenazas
 
-1. **Protección de Cabeceras HTTP:** Implementación de `helmet` para prevenir XSS, Clickjacking y MIME sniffing.
-2. **Mitigación de Fuerza Bruta / DDoS:** `RateLimitMiddleware` configurado para limitar intentos en `/api/auth` (15 solicitudes por ventana de 15 min).
-3. **Manejo de Sesión Seguro:** JWT transmitido mediante Cookies `httpOnly: true`, `sameSite: 'lax'` y `secure` en producción, mitigando la exposición de tokens a scripts maliciosos.
-4. **Cifrado de Contraseñas:** Hash con Salt Rounds mediante `BcryptPasswordHasher`.
-5. **Inmutabilidad de Identificación:** Regla de negocio a nivel entidad que prohíbe terminantemente alterar el documento de identidad una vez creado.
+La aplicacion fue disenada bajo el principio de defensa en profundidad:
+
+1. **Inyeccion SQL (SQLi):** Mitigada al 100%. Todas las consultas en los repositorios de infraestructura utilizan sentencias preparadas parametrizadas (`db.run(sql, params)`, `db.get(sql, params)`, `db.all(sql, params)`). Ninguna entrada de usuario se concatena directamente a SQL.
+2. **Ataques de Fuerza Bruta y DoS:** `RateLimitMiddleware` limita los intentos en rutas de autenticacion (`/api/auth`) a maximo 15 peticiones por ventana de 15 minutos por direccion IP.
+3. **Secuestro de Sesion (XSS / Token Theft):** El token JWT se transmite prioritariamente en cookies seguras con cabeceras `httpOnly: true` (inaccesibles por JavaScript malicioso), `sameSite: 'lax'` (proteccion contra CSRF) y flag `secure` en produccion.
+4. **Almacenamiento de Contrasenas:** Cifrado unidireccional irreversible mediante `bcryptjs` con 10 rondas de salt criptografico en `BcryptPasswordHasher`.
+5. **Cabeceras HTTP de Seguridad:** Implementacion de `helmet` para configurar `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, y politicas CSP.
+6. **CORS Seguro:** Politica de Cross-Origin Resource Sharing con verificacion de origen explicito y soporte estricto de credenciales.
+7. **Control de Acceso Basado en Roles (RBAC):** `RoleMiddleware` valida que solo usuarios autenticados con rol `'admin'` puedan crear, actualizar o eliminar libros, consultar historiales globales o administrar usuarios.
+8. **Inmutabilidad de Identificacion:** Regla de negocio en la entidad `User` que rechaza cualquier intento de modificacion del documento de identidad tras su creacion.
 
 ---
 
-## 👥 Credenciales de Acceso
+## 5. Aplicacion de Principios SOLID y Patrones de Diseno
 
-| Rol | Correo Electrónico | Contraseña | Permisos |
+1. **S - Single Responsibility Principle (SRP):** Cada clase tiene una unica razon para cambiar. Las entidades encapsulan validaciones y reglas de negocio, los repositorios gestionan persistencia SQL y los controladores gestionan la interfaz HTTP.
+2. **O - Open/Closed Principle (OCP):** El modulo de pagos se basa en el contrato `IPaymentGateway`. Se implemento `PayPalPaymentGateway`, pero se pueden conectar `StripePaymentGateway` o `MercadoPagoGateway` sin modificar `SaleService`.
+3. **L - Liskov Substitution Principle (LSP):** Cualquier implementacion de `IBookRepository`, `IUserRepository` o `IPaymentGateway` puede sustituir a su clase base sin alterar la logica de la aplicacion.
+4. **I - Interface Segregation Principle (ISP):** Contratos atomizados y especificos para cada modulo (`IBookRepository`, `ILoanRepository`, `ISaleRepository`, `IUserRepository`).
+5. **D - Dependency Inversion Principle (DIP):** Las capas de dominio y aplicacion dependen de abstracciones, nunca de detalles concretos. El Composition Root (`BootstrapFactory`) inyecta las dependencias en tiempo de arranque.
+
+### Patrones de Diseno Utilizados:
+- **Singleton:** `DatabaseConnection` asegura una unica instancia de conexion a la base de datos.
+- **Strategy:** `IPaymentGateway` define la familia de algoritmos de procesamiento de pagos intercambiables.
+- **Repository:** Desacopla la persistencia SQL de la logica de dominio.
+- **Factory / Composition Root:** `BootstrapFactory` ensambla y orquesta el grafo completo de dependencias.
+
+---
+
+## 6. Credenciales de Acceso
+
+| Rol | Correo Electronico | Contrasena | Permisos |
 | :--- | :--- | :--- | :--- |
-| **Administrador** | `admin@acmestore.com` | `Admin123!` | Acceso total al catálogo, préstamos globales, ventas globales y Gestión de Usuarios. |
-| **Cliente** | `cliente@acmestore.com` | `Cliente123!` | Catálogo, solicitar préstamos personales, compras de libros, perfil personal. |
+| **Administrador** | `admin@acmestore.com` | `Admin123!` | Acceso total al catalogo, prestamos globales, ventas globales y Gestion de Usuarios. |
+| **Cliente** | `cliente@acmestore.com` | `Cliente123!` | Catalogo, solicitar prestamos personales, compras de libros, perfil personal. |
 
 ---
 
-## 🚀 Puesta en Marcha Local
+## 7. Instalacion y Ejecucion Local
 
-### 1. Instalar dependencias
+### Paso 1: Clonar el repositorio
+```bash
+git clone https://github.com/barriosevelyn488-web/acme-store-backend.git
+cd acme-store-backend
+```
+
+### Paso 2: Instalar dependencias
 ```bash
 npm install
 ```
 
-### 2. Sembrar base de datos
+### Paso 3: Configurar variables de entorno
+Copiar el archivo de plantilla `.env.example` a `.env`:
+```bash
+cp .env.example .env
+```
+
+### Paso 4: Sembrar la base de datos SQL con catalogo inicial
 ```bash
 npm run seed
 ```
 
-### 3. Ejecutar pruebas automatizadas
+### Paso 5: Ejecutar suite de pruebas de integracion automatizadas
 ```bash
 npm test
 ```
 
-### 4. Iniciar servidor
+### Paso 6: Iniciar el servidor
 ```bash
 npm start
 ```
-El servidor escuchará en `http://localhost:3000`.
+El servidor estara operativo en: `http://localhost:3000`.
+Health check disponible en: `http://localhost:3000/api/health`.
 
 ---
 
-## 🧪 Pruebas con Bruno
+## 8. Pruebas con Coleccion Bruno
 
-La carpeta `bruno/` contiene la colección lista para importar en el cliente [Bruno](https://www.usebruno.com/):
-- **Colección:** `bruno/bruno.json`
+La carpeta `bruno/` contiene la coleccion completa de peticiones REST para probar la API con [Bruno](https://www.usebruno.com/):
+- **Coleccion:** `bruno/bruno.json`
 - **Ambiente:** `bruno/environments/Local.bru`
-- **Peticiones:**
+- **Peticiones incluidas:**
   - `Auth/Login Admin`
   - `Auth/Login Cliente`
-  - `Books/Get All Books` (Incluye sinopsis detallada)
-  - `Sales/Checkout Multi-Book` (Cobro con PayPal)
-  - `Users/List Users (Admin)` (Gestión de usuarios)
-
----
-
-## 🌐 Repositorio Frontend Conectado
-- **Frontend:** [https://github.com/barriosevelyn488-web/acme-store-frontend](https://github.com/barriosevelyn488-web/acme-store-frontend)
+  - `Books/Get All Books` (incluye sinopsis completa)
+  - `Sales/Checkout Multi-Book` (con pasarela PayPal)
+  - `Users/List Users (Admin)` (gestion administrativa de usuarios)

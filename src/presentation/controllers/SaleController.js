@@ -79,4 +79,4 @@ class SaleController {
   }
 }
 
-module.exports = SaleController;
+export default SaleController;

@@ -1,4 +1,4 @@
-const IPaymentGateway = require('../../domain/services/IPaymentGateway');
+import IPaymentGateway from '../../domain/services/IPaymentGateway.js';
 
 /**
  * PayPalPaymentGateway
@@ -49,4 +49,4 @@ class PayPalPaymentGateway extends IPaymentGateway {
   }
 }
 
-module.exports = PayPalPaymentGateway;
+export default PayPalPaymentGateway;

@@ -1,4 +1,4 @@
-const { ValidationError, NotFoundError, ConflictError } = require('../../domain/errors/DomainErrors');
+import { ValidationError, NotFoundError, ConflictError } from '../../domain/errors/DomainErrors.js';
 
 /**
  * ProfileService
@@ -53,4 +53,4 @@ class ProfileService {
   }
 }
 
-module.exports = ProfileService;
+export default ProfileService;

@@ -1,4 +1,4 @@
-const rateLimit = require('express-rate-limit');
+import rateLimit from 'express-rate-limit';
 
 /**
  * RateLimitMiddleware
@@ -41,4 +41,4 @@ class RateLimitMiddleware {
   }
 }
 
-module.exports = RateLimitMiddleware;
+export default RateLimitMiddleware;

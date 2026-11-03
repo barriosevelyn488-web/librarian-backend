@@ -9,4 +9,4 @@ class IUserRepository {
   async hasActiveLoansOrPurchases(id) { throw new Error('Method hasActiveLoansOrPurchases() must be implemented.'); }
 }
 
-module.exports = IUserRepository;
+export default IUserRepository;

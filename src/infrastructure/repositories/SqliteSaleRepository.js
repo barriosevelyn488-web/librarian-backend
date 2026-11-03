@@ -1,7 +1,7 @@
-const ISaleRepository = require('../../domain/repositories/ISaleRepository');
-const Sale = require('../../domain/entities/Sale');
-const SaleDetail = require('../../domain/entities/SaleDetail');
-const DatabaseConnection = require('../database/DatabaseConnection');
+import ISaleRepository from '../../domain/repositories/ISaleRepository.js';
+import Sale from '../../domain/entities/Sale.js';
+import SaleDetail from '../../domain/entities/SaleDetail.js';
+import DatabaseConnection from '../database/DatabaseConnection.js';
 
 class SqliteSaleRepository extends ISaleRepository {
   constructor() {
@@ -132,4 +132,4 @@ class SqliteSaleRepository extends ISaleRepository {
   }
 }
 
-module.exports = SqliteSaleRepository;
+export default SqliteSaleRepository;

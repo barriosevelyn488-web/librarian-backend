@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 /**
  * AuthRouter
@@ -25,4 +25,4 @@ class AuthRouter {
   }
 }
 
-module.exports = AuthRouter;
+export default AuthRouter;

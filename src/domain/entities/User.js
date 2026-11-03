@@ -1,4 +1,4 @@
-const { ValidationError } = require('../errors/DomainErrors');
+import { ValidationError } from '../errors/DomainErrors.js';
 
 class User {
   constructor({
@@ -112,4 +112,4 @@ class User {
   }
 }
 
-module.exports = User;
+export default User;

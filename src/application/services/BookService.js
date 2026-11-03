@@ -1,5 +1,5 @@
-const Book = require('../../domain/entities/Book');
-const { ValidationError, NotFoundError, ConflictError } = require('../../domain/errors/DomainErrors');
+import Book from '../../domain/entities/Book.js';
+import { ValidationError, NotFoundError, ConflictError } from '../../domain/errors/DomainErrors.js';
 
 /**
  * BookService
@@ -80,4 +80,4 @@ class BookService {
   }
 }
 
-module.exports = BookService;
+export default BookService;

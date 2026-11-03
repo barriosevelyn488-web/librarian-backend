@@ -8,4 +8,4 @@ class ILoanRepository {
   async getMetrics() { throw new Error('Method getMetrics() must be implemented.'); }
 }
 
-module.exports = ILoanRepository;
+export default ILoanRepository;

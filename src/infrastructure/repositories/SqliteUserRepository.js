@@ -1,6 +1,6 @@
-const IUserRepository = require('../../domain/repositories/IUserRepository');
-const User = require('../../domain/entities/User');
-const DatabaseConnection = require('../database/DatabaseConnection');
+import IUserRepository from '../../domain/repositories/IUserRepository.js';
+import User from '../../domain/entities/User.js';
+import DatabaseConnection from '../database/DatabaseConnection.js';
 
 class SqliteUserRepository extends IUserRepository {
   constructor() {
@@ -131,4 +131,4 @@ class SqliteUserRepository extends IUserRepository {
   }
 }
 
-module.exports = SqliteUserRepository;
+export default SqliteUserRepository;

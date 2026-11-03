@@ -8,4 +8,4 @@ class IBookRepository {
   async hasActiveLoansOrSales(id) { throw new Error('Method hasActiveLoansOrSales() must be implemented.'); }
 }
 
-module.exports = IBookRepository;
+export default IBookRepository;

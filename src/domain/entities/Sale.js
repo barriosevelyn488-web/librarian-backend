@@ -1,5 +1,5 @@
-const { ValidationError } = require('../errors/DomainErrors');
-const SaleDetail = require('./SaleDetail');
+import { ValidationError } from '../errors/DomainErrors.js';
+import SaleDetail from './SaleDetail.js';
 
 class Sale {
   constructor({
@@ -73,4 +73,4 @@ class Sale {
   }
 }
 
-module.exports = Sale;
+export default Sale;

@@ -1,58 +1,61 @@
-require('dotenv').config();
-const DatabaseConnection = require('./infrastructure/database/DatabaseConnection');
-const DatabaseInitializer = require('./infrastructure/database/DatabaseInitializer');
+import 'dotenv/config';
+import { fileURLToPath } from 'url';
+
+// Base de Datos
+import DatabaseConnection from './infrastructure/database/DatabaseConnection.js';
+import DatabaseInitializer from './infrastructure/database/DatabaseInitializer.js';
 
 // Repositorios
-const SqliteUserRepository = require('./infrastructure/repositories/SqliteUserRepository');
-const SqliteBookRepository = require('./infrastructure/repositories/SqliteBookRepository');
-const SqliteLoanRepository = require('./infrastructure/repositories/SqliteLoanRepository');
-const SqliteSaleRepository = require('./infrastructure/repositories/SqliteSaleRepository');
+import SqliteUserRepository from './infrastructure/repositories/SqliteUserRepository.js';
+import SqliteBookRepository from './infrastructure/repositories/SqliteBookRepository.js';
+import SqliteLoanRepository from './infrastructure/repositories/SqliteLoanRepository.js';
+import SqliteSaleRepository from './infrastructure/repositories/SqliteSaleRepository.js';
 
 // Seguridad y Pasarela
-const BcryptPasswordHasher = require('./infrastructure/security/BcryptPasswordHasher');
-const JwtTokenService = require('./infrastructure/security/JwtTokenService');
-const PayPalPaymentGateway = require('./infrastructure/payments/PayPalPaymentGateway');
+import BcryptPasswordHasher from './infrastructure/security/BcryptPasswordHasher.js';
+import JwtTokenService from './infrastructure/security/JwtTokenService.js';
+import PayPalPaymentGateway from './infrastructure/payments/PayPalPaymentGateway.js';
 
-// Servicios de Aplicación
-const AuthService = require('./application/services/AuthService');
-const BookService = require('./application/services/BookService');
-const LoanService = require('./application/services/LoanService');
-const SaleService = require('./application/services/SaleService');
-const ProfileService = require('./application/services/ProfileService');
-const UserService = require('./application/services/UserService');
+// Servicios de Aplicacion
+import AuthService from './application/services/AuthService.js';
+import BookService from './application/services/BookService.js';
+import LoanService from './application/services/LoanService.js';
+import SaleService from './application/services/SaleService.js';
+import ProfileService from './application/services/ProfileService.js';
+import UserService from './application/services/UserService.js';
 
 // Middlewares
-const AuthMiddleware = require('./presentation/middlewares/AuthMiddleware');
-const RoleMiddleware = require('./presentation/middlewares/RoleMiddleware');
-const RateLimitMiddleware = require('./presentation/middlewares/RateLimitMiddleware');
-const ErrorHandlerMiddleware = require('./presentation/middlewares/ErrorHandlerMiddleware');
+import AuthMiddleware from './presentation/middlewares/AuthMiddleware.js';
+import RoleMiddleware from './presentation/middlewares/RoleMiddleware.js';
+import RateLimitMiddleware from './presentation/middlewares/RateLimitMiddleware.js';
+import ErrorHandlerMiddleware from './presentation/middlewares/ErrorHandlerMiddleware.js';
 
 // Controladores
-const AuthController = require('./presentation/controllers/AuthController');
-const BookController = require('./presentation/controllers/BookController');
-const LoanController = require('./presentation/controllers/LoanController');
-const SaleController = require('./presentation/controllers/SaleController');
-const ProfileController = require('./presentation/controllers/ProfileController');
-const UserController = require('./presentation/controllers/UserController');
+import AuthController from './presentation/controllers/AuthController.js';
+import BookController from './presentation/controllers/BookController.js';
+import LoanController from './presentation/controllers/LoanController.js';
+import SaleController from './presentation/controllers/SaleController.js';
+import ProfileController from './presentation/controllers/ProfileController.js';
+import UserController from './presentation/controllers/UserController.js';
 
 // Enrutadores
-const AuthRouter = require('./presentation/routes/AuthRouter');
-const BookRouter = require('./presentation/routes/BookRouter');
-const LoanRouter = require('./presentation/routes/LoanRouter');
-const SaleRouter = require('./presentation/routes/SaleRouter');
-const ProfileRouter = require('./presentation/routes/ProfileRouter');
-const UserRouter = require('./presentation/routes/UserRouter');
+import AuthRouter from './presentation/routes/AuthRouter.js';
+import BookRouter from './presentation/routes/BookRouter.js';
+import LoanRouter from './presentation/routes/LoanRouter.js';
+import SaleRouter from './presentation/routes/SaleRouter.js';
+import ProfileRouter from './presentation/routes/ProfileRouter.js';
+import UserRouter from './presentation/routes/UserRouter.js';
 
-// Aplicación Principal
-const App = require('./presentation/App');
+// Aplicacion Principal
+import App from './presentation/App.js';
 
 /**
  * BootstrapFactory
- * Clase responsable de ensamblar el grafo de dependencias según Clean Architecture y DIP.
+ * Clase responsable de ensamblar el grafo de dependencias segun Clean Architecture y DIP.
  */
-class BootstrapFactory {
+export class BootstrapFactory {
   static async createApplication(customDbPath = null) {
-    // 1. Conexión e Inicialización de Base de Datos
+    // 1. Conexion e Inicializacion de Base de Datos
     if (customDbPath) {
       process.env.SQLITE_DB_PATH = customDbPath;
     }
@@ -69,7 +72,7 @@ class BootstrapFactory {
     const tokenService = new JwtTokenService();
     const paymentGateway = new PayPalPaymentGateway();
 
-    // 3. Servicios de Aplicación
+    // 3. Servicios de Aplicacion
     const authService = new AuthService(userRepository, passwordHasher, tokenService);
     const bookService = new BookService(bookRepository);
     const loanService = new LoanService(loanRepository, bookRepository, userRepository);
@@ -99,7 +102,7 @@ class BootstrapFactory {
     const profileRouter = new ProfileRouter(profileController, authMiddleware);
     const userRouter = new UserRouter(userController, authMiddleware, adminRoleMiddleware);
 
-    // 7. Aplicación Principal
+    // 7. Aplicacion Principal
     const application = new App({
       authRouter,
       bookRouter,
@@ -126,8 +129,8 @@ class BootstrapFactory {
   }
 }
 
-// Inicialización del servidor si se ejecuta como script principal
-if (require.main === module) {
+// Inicializacion del servidor si se ejecuta como script principal
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const PORT = process.env.PORT || 3000;
   BootstrapFactory.createApplication().then(({ expressApp }) => {
     expressApp.listen(PORT, () => {
@@ -138,9 +141,9 @@ if (require.main === module) {
       console.log(`=========================================`);
     });
   }).catch(err => {
-    console.error('Error al inicializar la aplicación:', err);
+    console.error('Error al inicializar la aplicacion:', err);
     process.exit(1);
   });
 }
 
-module.exports = BootstrapFactory;
+export default BootstrapFactory;

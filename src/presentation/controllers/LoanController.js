@@ -74,4 +74,4 @@ class LoanController {
   }
 }
 
-module.exports = LoanController;
+export default LoanController;

@@ -28,4 +28,4 @@ class RoleMiddleware {
   }
 }
 
-module.exports = RoleMiddleware;
+export default RoleMiddleware;

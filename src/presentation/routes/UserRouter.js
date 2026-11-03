@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 /**
  * UserRouter
@@ -30,4 +30,4 @@ class UserRouter {
   }
 }
 
-module.exports = UserRouter;
+export default UserRouter;

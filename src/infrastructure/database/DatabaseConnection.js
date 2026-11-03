@@ -1,6 +1,8 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-const fs = require('fs');
+import sqlite3pkg from 'sqlite3';
+import path from 'path';
+import fs from 'fs';
+
+const sqlite3 = sqlite3pkg.verbose();
 
 class DatabaseConnection {
   static _instance = null;
@@ -102,4 +104,4 @@ class DatabaseConnection {
   }
 }
 
-module.exports = DatabaseConnection;
+export default DatabaseConnection;

@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
 
 /**
  * BcryptPasswordHasher
@@ -24,4 +24,4 @@ class BcryptPasswordHasher {
   }
 }
 
-module.exports = BcryptPasswordHasher;
+export default BcryptPasswordHasher;

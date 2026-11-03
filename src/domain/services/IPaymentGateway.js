@@ -12,4 +12,4 @@ class IPaymentGateway {
   }
 }
 
-module.exports = IPaymentGateway;
+export default IPaymentGateway;

@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 /**
  * LoanRouter
@@ -31,4 +31,4 @@ class LoanRouter {
   }
 }
 
-module.exports = LoanRouter;
+export default LoanRouter;

@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 /**
  * BookRouter
@@ -30,4 +30,4 @@ class BookRouter {
   }
 }
 
-module.exports = BookRouter;
+export default BookRouter;

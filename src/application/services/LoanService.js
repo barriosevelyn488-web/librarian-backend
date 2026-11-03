@@ -1,5 +1,5 @@
-const Loan = require('../../domain/entities/Loan');
-const { ValidationError, NotFoundError, BusinessRuleError } = require('../../domain/errors/DomainErrors');
+import Loan from '../../domain/entities/Loan.js';
+import { ValidationError, NotFoundError, BusinessRuleError } from '../../domain/errors/DomainErrors.js';
 
 /**
  * LoanService
@@ -81,4 +81,4 @@ class LoanService {
   }
 }
 
-module.exports = LoanService;
+export default LoanService;

@@ -1,6 +1,6 @@
-const assert = require('assert');
-const http = require('http');
-const BootstrapFactory = require('../src/index');
+import assert from 'assert';
+import http from 'http';
+import BootstrapFactory from '../src/index.js';
 
 function makeRequest(app, method, path, headers = {}, body = null) {
   return new Promise((resolve, reject) => {
@@ -47,7 +47,7 @@ function makeRequest(app, method, path, headers = {}, body = null) {
 }
 
 async function runTests() {
-  console.log('🧪 Iniciando Suite de Pruebas de Integración (Acme Store)...');
+  console.log('[TEST] Iniciando Suite de Pruebas de Integracion (Acme Store)...');
 
   const { expressApp } = await BootstrapFactory.createApplication();
 
@@ -229,7 +229,7 @@ async function runTests() {
   assert.strictEqual(deleteUserRes.status, 200);
   console.log('   ✓ CRUD completo de Gestión de Usuarios verificado');
 
-  console.log('\n🎉 ¡TODAS LAS 13 PRUEBAS DE INTEGRACIÓN PASARON EXITOSAMENTE!');
+  console.log('\n[SUCCESS] TODAS LAS 13 PRUEBAS DE INTEGRACION PASARON SATISFACTORIAMENTE.');
   process.exit(0);
 }
 

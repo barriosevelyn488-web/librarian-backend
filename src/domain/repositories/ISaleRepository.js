@@ -7,4 +7,4 @@ class ISaleRepository {
   async getMetrics() { throw new Error('Method getMetrics() must be implemented.'); }
 }
 
-module.exports = ISaleRepository;
+export default ISaleRepository;

@@ -1,4 +1,4 @@
-const { ValidationError } = require('../errors/DomainErrors');
+import { ValidationError } from '../errors/DomainErrors.js';
 
 class Loan {
   constructor({
@@ -99,4 +99,4 @@ class Loan {
   }
 }
 
-module.exports = Loan;
+export default Loan;

@@ -1,6 +1,6 @@
-const IBookRepository = require('../../domain/repositories/IBookRepository');
-const Book = require('../../domain/entities/Book');
-const DatabaseConnection = require('../database/DatabaseConnection');
+import IBookRepository from '../../domain/repositories/IBookRepository.js';
+import Book from '../../domain/entities/Book.js';
+import DatabaseConnection from '../database/DatabaseConnection.js';
 
 class SqliteBookRepository extends IBookRepository {
   constructor() {
@@ -133,4 +133,4 @@ class SqliteBookRepository extends IBookRepository {
   }
 }
 
-module.exports = SqliteBookRepository;
+export default SqliteBookRepository;

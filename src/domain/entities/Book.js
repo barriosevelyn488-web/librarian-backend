@@ -1,4 +1,4 @@
-const { ValidationError, InsufficientStockError } = require('../errors/DomainErrors');
+import { ValidationError, InsufficientStockError } from '../errors/DomainErrors.js';
 
 class Book {
   constructor({
@@ -142,4 +142,4 @@ class Book {
   }
 }
 
-module.exports = Book;
+export default Book;

@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 /**
  * App
@@ -105,4 +105,4 @@ class App {
   }
 }
 
-module.exports = App;
+export default App;

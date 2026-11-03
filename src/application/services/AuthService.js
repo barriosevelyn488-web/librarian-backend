@@ -1,5 +1,5 @@
-const User = require('../../domain/entities/User');
-const { ValidationError, UnauthorizedError, ConflictError } = require('../../domain/errors/DomainErrors');
+import User from '../../domain/entities/User.js';
+import { ValidationError, UnauthorizedError, ConflictError } from '../../domain/errors/DomainErrors.js';
 
 /**
  * AuthService
@@ -83,4 +83,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+export default AuthService;

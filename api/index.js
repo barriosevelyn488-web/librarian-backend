@@ -1,8 +1,8 @@
-const BootstrapFactory = require('../src/index');
+import BootstrapFactory from '../src/index.js';
 
 let cachedHandler = null;
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   if (!cachedHandler) {
     const { expressApp } = await BootstrapFactory.createApplication();
     cachedHandler = expressApp;

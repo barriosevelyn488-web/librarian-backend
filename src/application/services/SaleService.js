@@ -1,6 +1,6 @@
-const Sale = require('../../domain/entities/Sale');
-const SaleDetail = require('../../domain/entities/SaleDetail');
-const { ValidationError, NotFoundError, BusinessRuleError } = require('../../domain/errors/DomainErrors');
+import Sale from '../../domain/entities/Sale.js';
+import SaleDetail from '../../domain/entities/SaleDetail.js';
+import { ValidationError, NotFoundError, BusinessRuleError } from '../../domain/errors/DomainErrors.js';
 
 /**
  * SaleService
@@ -120,4 +120,4 @@ class SaleService {
   }
 }
 
-module.exports = SaleService;
+export default SaleService;

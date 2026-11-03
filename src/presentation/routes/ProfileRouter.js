@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 /**
  * ProfileRouter
@@ -23,4 +23,4 @@ class ProfileRouter {
   }
 }
 
-module.exports = ProfileRouter;
+export default ProfileRouter;

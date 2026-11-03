@@ -1,6 +1,6 @@
-const ILoanRepository = require('../../domain/repositories/ILoanRepository');
-const Loan = require('../../domain/entities/Loan');
-const DatabaseConnection = require('../database/DatabaseConnection');
+import ILoanRepository from '../../domain/repositories/ILoanRepository.js';
+import Loan from '../../domain/entities/Loan.js';
+import DatabaseConnection from '../database/DatabaseConnection.js';
 
 class SqliteLoanRepository extends ILoanRepository {
   constructor() {
@@ -140,4 +140,4 @@ class SqliteLoanRepository extends ILoanRepository {
   }
 }
 
-module.exports = SqliteLoanRepository;
+export default SqliteLoanRepository;
