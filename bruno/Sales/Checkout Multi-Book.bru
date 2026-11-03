@@ -1,0 +1,31 @@
+meta {
+  name: Checkout Multi-Book (Venta)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/sales
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "items": [
+      {
+        "libroId": 1,
+        "cantidad": 1
+      },
+      {
+        "libroId": 2,
+        "cantidad": 2
+      }
+    ],
+    "paymentMethod": "tarjeta_paypal"
+  }
+}
