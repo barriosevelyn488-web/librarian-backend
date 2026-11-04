@@ -49,12 +49,17 @@ class DatabaseInitializer {
         FOREIGN KEY (id_libro) REFERENCES libros(id_libro) ON DELETE RESTRICT
       );
 
-      -- 4. Tabla de Ventas (Cabecera)
+      -- 4. Tabla de Ventas (Cabecera con método de pago y despacho)
       CREATE TABLE IF NOT EXISTS ventas (
         id_venta INTEGER PRIMARY KEY AUTOINCREMENT,
         id_usuario INTEGER NOT NULL,
         fecha_venta DATETIME DEFAULT CURRENT_TIMESTAMP,
         total REAL NOT NULL DEFAULT 0 CHECK (total >= 0),
+        metodo_pago TEXT DEFAULT 'Tarjeta de Crédito / Débito',
+        direccion_envio TEXT,
+        ciudad TEXT,
+        telefono TEXT,
+        notas TEXT,
         FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE RESTRICT
       );
 
@@ -79,6 +84,13 @@ class DatabaseInitializer {
     `;
 
     await db.exec(ddl);
+
+    // Migraciones automáticas seguras para instalaciones existentes
+    try { await db.run("ALTER TABLE ventas ADD COLUMN metodo_pago TEXT DEFAULT 'Tarjeta de Crédito / Débito'"); } catch (e) {}
+    try { await db.run("ALTER TABLE ventas ADD COLUMN direccion_envio TEXT"); } catch (e) {}
+    try { await db.run("ALTER TABLE ventas ADD COLUMN ciudad TEXT"); } catch (e) {}
+    try { await db.run("ALTER TABLE ventas ADD COLUMN telefono TEXT"); } catch (e) {}
+    try { await db.run("ALTER TABLE ventas ADD COLUMN notas TEXT"); } catch (e) {}
 
     const checkUsers = await db.get('SELECT COUNT(*) as count FROM usuarios');
     if (!checkUsers || checkUsers.count === 0) {

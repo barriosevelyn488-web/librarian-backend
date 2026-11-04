@@ -50,6 +50,11 @@ class SqliteSaleRepository extends ISaleRepository {
       usuarioId: saleRow.id_usuario,
       fechaVenta: saleRow.fecha_venta,
       total: saleRow.total,
+      metodoPago: saleRow.metodo_pago || 'Tarjeta de Crédito / Débito',
+      direccionEnvio: saleRow.direccion_envio || '',
+      ciudad: saleRow.ciudad || '',
+      telefono: saleRow.telefono || '',
+      notas: saleRow.notas || '',
       detalles,
       usuarioInfo: {
         nombre: saleRow.usuario_nombre,
@@ -61,9 +66,18 @@ class SqliteSaleRepository extends ISaleRepository {
 
   async create(sale) {
     const saleResult = await this.db.run(
-      `INSERT INTO ventas (id_usuario, fecha_venta, total)
-       VALUES (?, ?, ?)`,
-      [sale.usuarioId, sale.fechaVenta, sale.total]
+      `INSERT INTO ventas (id_usuario, fecha_venta, total, metodo_pago, direccion_envio, ciudad, telefono, notas)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        sale.usuarioId,
+        sale.fechaVenta,
+        sale.total,
+        sale.metodoPago || 'Tarjeta de Crédito / Débito',
+        sale.direccionEnvio || '',
+        sale.ciudad || '',
+        sale.telefono || '',
+        sale.notas || ''
+      ]
     );
 
     const saleId = saleResult.lastID;

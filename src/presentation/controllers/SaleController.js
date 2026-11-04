@@ -18,7 +18,11 @@ class SaleController {
       const sale = await this.saleService.processSale({
         usuarioId,
         items: req.body.items,
-        paymentMethod: req.body.paymentMethod || 'tarjeta_paypal'
+        paymentMethod: req.body.paymentMethod || 'Tarjeta de Crédito / Débito',
+        shippingAddress: req.body.shippingAddress || req.body.direccionEnvio || '',
+        shippingCity: req.body.shippingCity || req.body.ciudad || '',
+        contactPhone: req.body.contactPhone || req.body.telefono || '',
+        deliveryNotes: req.body.deliveryNotes || req.body.notas || ''
       });
 
       return res.status(201).json({

@@ -7,12 +7,22 @@ class Sale {
     usuarioId,
     fechaVenta = new Date().toISOString(),
     total = null,
+    metodoPago = 'Tarjeta de Crédito / Débito',
+    direccionEnvio = '',
+    ciudad = '',
+    telefono = '',
+    notas = '',
     detalles = [],
     usuarioInfo = null
   }) {
     this._id = id;
     this._usuarioId = this._validateId(usuarioId, 'usuarioId');
     this._fechaVenta = fechaVenta;
+    this._metodoPago = metodoPago;
+    this._direccionEnvio = direccionEnvio;
+    this._ciudad = ciudad;
+    this._telefono = telefono;
+    this._notas = notas;
     this._detalles = this._initDetalles(detalles);
     this._total = total !== null ? this._validateTotal(total) : this.calculateTotal();
     this._usuarioInfo = usuarioInfo;
@@ -22,6 +32,11 @@ class Sale {
   get usuarioId() { return this._usuarioId; }
   get fechaVenta() { return this._fechaVenta; }
   get total() { return this._total; }
+  get metodoPago() { return this._metodoPago; }
+  get direccionEnvio() { return this._direccionEnvio; }
+  get ciudad() { return this._ciudad; }
+  get telefono() { return this._telefono; }
+  get notas() { return this._notas; }
   get detalles() { return this._detalles; }
   get usuarioInfo() { return this._usuarioInfo; }
 
@@ -67,6 +82,11 @@ class Sale {
       usuarioId: this._usuarioId,
       fechaVenta: this._fechaVenta,
       total: this._total,
+      metodoPago: this._metodoPago,
+      direccionEnvio: this._direccionEnvio,
+      ciudad: this._ciudad,
+      telefono: this._telefono,
+      notas: this._notas,
       detalles: this._detalles.map(d => d.toJSON()),
       usuarioInfo: this._usuarioInfo
     };

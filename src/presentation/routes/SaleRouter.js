@@ -18,9 +18,11 @@ class SaleRouter {
 
     // Crear compra (cliente o admin)
     this.router.post('/', this.saleController.processSale);
-    // Historial del usuario autenticado
+    // Historial del usuario autenticado (con alias)
     this.router.get('/my-sales', this.saleController.getMySales);
-    // Ver recibo/factura específica
+    this.router.get('/my', this.saleController.getMySales);
+    // Ver recibo/factura específica (con alias)
+    this.router.get('/:id/receipt', this.saleController.getSaleById);
     this.router.get('/:id', this.saleController.getSaleById);
 
     // Listar todas las ventas (solo admin)

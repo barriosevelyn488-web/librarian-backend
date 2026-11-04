@@ -15,7 +15,15 @@ class SaleService {
   }
 
   async processSale(data) {
-    const { usuarioId, items, paymentMethod = 'tarjeta_paypal' } = data;
+    const { 
+      usuarioId, 
+      items, 
+      paymentMethod = 'Tarjeta de Crédito / Débito',
+      shippingAddress = '',
+      shippingCity = '',
+      contactPhone = '',
+      deliveryNotes = ''
+    } = data;
 
     if (!usuarioId) {
       throw new ValidationError('El ID del usuario/cliente es obligatorio');
@@ -85,6 +93,11 @@ class SaleService {
       usuarioId: Number(usuarioId),
       fechaVenta,
       total: totalCalculado,
+      metodoPago: paymentMethod,
+      direccionEnvio: shippingAddress,
+      ciudad: shippingCity,
+      telefono: contactPhone,
+      notas: deliveryNotes,
       detalles: saleDetails
     });
 
