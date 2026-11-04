@@ -74,7 +74,7 @@ class App {
     this.app.get('/api/health', (req, res) => {
       res.status(200).json({
         success: true,
-        message: 'Acme Store API operational',
+        message: 'Librarian API operational',
         timestamp: new Date().toISOString()
       });
     });

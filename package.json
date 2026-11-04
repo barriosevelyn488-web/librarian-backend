@@ -1,7 +1,7 @@
 {
-  "name": "acme-store-backend",
+  "name": "librarian-backend",
   "version": "1.0.0",
-  "description": "Acme Store - Enterprise Bookstore & Library Management API (Pure OOP, Clean Architecture, SOLID, Express)",
+  "description": "Librarian - Enterprise Bookstore & Library Management API (Pure OOP, Clean Architecture, SOLID, Express)",
   "main": "src/index.js",
   "type": "module",
   "scripts": {

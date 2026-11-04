@@ -4,7 +4,7 @@ import BcryptPasswordHasher from '../security/BcryptPasswordHasher.js';
 import { fileURLToPath } from 'url';
 
 async function seed() {
-  console.log('[Seed] Iniciando sembrado de datos iniciales para Acme Store...');
+  console.log('[Seed] Iniciando sembrado de datos iniciales para Librarian Store...');
 
   const db = DatabaseConnection.getInstance();
 
@@ -18,7 +18,16 @@ async function seed() {
       identificacion: 'ADM-1001',
       nombre: 'Administrador Principal',
       telefono: '+57 300 123 4567',
-      direccion: 'Avenida Siempreviva 742, Piso 4',
+      direccion: 'Avenida de los Libros 742, Piso 4',
+      email: 'admin@librarian.com',
+      password_hash: adminPasswordHash,
+      rol: 'admin'
+    },
+    {
+      identificacion: 'ADM-1002',
+      nombre: 'Administrador Legacy',
+      telefono: '+57 300 123 4568',
+      direccion: 'Avenida Principal 100',
       email: 'admin@acmestore.com',
       password_hash: adminPasswordHash,
       rol: 'admin'
@@ -28,7 +37,7 @@ async function seed() {
       nombre: 'Carlos Mendoza',
       telefono: '+57 311 987 6543',
       direccion: 'Carrera 45 # 26 - 85, Apto 302',
-      email: 'cliente@acmestore.com',
+      email: 'cliente@librarian.com',
       password_hash: clientePasswordHash,
       rol: 'cliente'
     },
@@ -37,7 +46,7 @@ async function seed() {
       nombre: 'Elena Restrepo',
       telefono: '+57 315 456 7890',
       direccion: 'Calle 100 # 15 - 20',
-      email: 'elena.restrepo@example.com',
+      email: 'cliente@acmestore.com',
       password_hash: clientePasswordHash,
       rol: 'cliente'
     }
@@ -53,6 +62,7 @@ async function seed() {
 
   // 2. Libros Iniciales con Sinopsis Detallada
   const books = [
+    // 1. Software e Ingeniería
     {
       isbn: '978-0132350884',
       titulo: 'Clean Code: A Handbook of Agile Software Craftsmanship',
@@ -87,6 +97,30 @@ async function seed() {
       resumen: 'Aplicando las reglas universales de la arquitectura de software, este libro enseña cómo separar la lógica de negocio de los detalles de infraestructura, frameworks, bases de datos y la interfaz gráfica. Una guía indispensable para ingenieros que aspiran a construir sistemas altamente escalables, desacoplados y fáciles de testear.'
     },
     {
+      isbn: '978-0135957059',
+      titulo: 'The Pragmatic Programmer: Your Journey to Mastery',
+      autor: 'David Thomas, Andrew Hunt',
+      editorial: 'Addison-Wesley',
+      anio_publicacion: 2019,
+      precio_venta: 48.00,
+      stock_total: 14,
+      stock_disponible: 14,
+      resumen: 'Uno de los libros más influyentes en la ingeniería de software moderna. Cubre temas esenciales desde la responsabilidad profesional y el desarrollo de carrera personal hasta técnicas arquitectónicas para mantener el código flexible, reutilizable y adaptable al cambio constante.'
+    },
+    {
+      isbn: '978-0134757599',
+      titulo: 'Refactoring: Improving the Design of Existing Code',
+      autor: 'Martin Fowler',
+      editorial: 'Addison-Wesley',
+      anio_publicacion: 2018,
+      precio_venta: 52.00,
+      stock_total: 12,
+      stock_disponible: 12,
+      resumen: 'Una guía fundamental sobre el arte de reestructurar el código existente sin cambiar su comportamiento externo, mejorando su diseño, legibilidad y facilidad de mantenimiento. Incluye un catálogo exhaustivo de técnicas de refactorización orientadas a objetos.'
+    },
+
+    // 2. Literatura Clásica
+    {
       isbn: '978-8437604947',
       titulo: 'Cien años de soledad',
       autor: 'Gabriel García Márquez',
@@ -97,6 +131,52 @@ async function seed() {
       stock_disponible: 25,
       resumen: 'Una de las cumbres universales de la literatura en español y estandarte del realismo mágico. Narra la historia de la familia Buendía a lo largo de siete generaciones en el mítico pueblo de Macondo, explorando el aislamiento, el amor trágico, las guerras civiles y el destino inexorable de la estirpe humana.'
     },
+    {
+      isbn: '978-8424116286',
+      titulo: 'Don Quijote de la Mancha',
+      autor: 'Miguel de Cervantes',
+      editorial: 'Austral',
+      anio_publicacion: 1605,
+      precio_venta: 22.00,
+      stock_total: 18,
+      stock_disponible: 18,
+      resumen: 'La mayor joya de la literatura universal en lengua castellana. Las hazañas, reflexiones y desvaríos del hidalgo Don Quijote y su leal escudero Sancho Panza en pos de la justicia, la lealtad y los ideales caballerescos frente a la realidad cotidiana.'
+    },
+    {
+      isbn: '978-0156012195',
+      titulo: 'El Principito',
+      autor: 'Antoine de Saint-Exupéry',
+      editorial: 'Harcourt',
+      anio_publicacion: 1943,
+      precio_venta: 14.50,
+      stock_total: 30,
+      stock_disponible: 30,
+      resumen: 'Un poético y conmovedor relato sobre el amor, la amistad, la pérdida y el sentido de la vida, visto a través de los ojos inocentes de un pequeño príncipe de otro planeta. Contiene una profunda crítica humanística sobre cómo los adultos perciben el mundo.'
+    },
+    {
+      isbn: '978-1400034956',
+      titulo: 'Crónica de una Muerte Anunciada',
+      autor: 'Gabriel García Márquez',
+      editorial: 'Vintage Español',
+      anio_publicacion: 1981,
+      precio_venta: 18.00,
+      stock_total: 16,
+      stock_disponible: 16,
+      resumen: 'Extraordinaria reconstrucción de un suceso real que combina novela policíaca, crónica periodística y drama trágico. Todo el pueblo sabe que los hermanos Vicario van a matar a Santiago Nasar para vengar el honor de su hermana, pero una cadena de casualidades impide detener la tragedia.'
+    },
+    {
+      isbn: '978-0307387738',
+      titulo: 'El Amor en los Tiempos del Cólera',
+      autor: 'Gabriel García Márquez',
+      editorial: 'Vintage Español',
+      anio_publicacion: 1985,
+      precio_venta: 24.00,
+      stock_total: 15,
+      stock_disponible: 15,
+      resumen: 'La historia de Florentino Ariza y Fermina Daza, un amor juvenil postergado por más de cincuenta años, nueve meses y cuatro días, hasta que la vejez y la muerte del esposo de Fermina les ofrecen una segunda oportunidad en un viaje por el río Magdalena.'
+    },
+
+    // 3. Ciencia Ficción y Distopía
     {
       isbn: '978-0451524935',
       titulo: '1984',
@@ -109,6 +189,28 @@ async function seed() {
       resumen: 'Una sobrecogedora novela distópica que advierte sobre los peligros del totalitarismo, la vigilancia omnipresente del "Gran Hermano" y la manipulación de la verdad histórica a través de la Neolengua y la Policía del Pensamiento. Su protagonista, Winston Smith, emprende una solitaria y peligrosa rebelión moral.'
     },
     {
+      isbn: '978-1451673319',
+      titulo: 'Fahrenheit 451',
+      autor: 'Ray Bradbury',
+      editorial: 'Simon & Schuster',
+      anio_publicacion: 1953,
+      precio_venta: 16.50,
+      stock_total: 20,
+      stock_disponible: 20,
+      resumen: 'Un clásico inmortal de la ciencia ficción que retrata un futuro distópico donde los bomberos tienen la misión de quemar todos los libros para erradicar el libre pensamiento y mantener a la sociedad sedada por el entretenimiento superficial.'
+    },
+    {
+      isbn: '978-0060850524',
+      titulo: 'Un Mundo Feliz (Brave New World)',
+      autor: 'Aldous Huxley',
+      editorial: 'Chatto & Windus',
+      anio_publicacion: 1932,
+      precio_venta: 21.00,
+      stock_total: 17,
+      stock_disponible: 17,
+      resumen: 'Una visión profética de una sociedad futura organizada científicamente en castas genéticas y mantenida en una aparente felicidad obligatoria mediante el condicionamiento psicológico y el consumo de la droga soma, donde los valores humanos han sido sacrificados por la estabilidad.'
+    },
+    {
       isbn: '978-0345391803',
       titulo: 'The Hitchhiker\'s Guide to the Galaxy',
       autor: 'Douglas Adams',
@@ -118,6 +220,17 @@ async function seed() {
       stock_total: 12,
       stock_disponible: 12,
       resumen: 'Segundos antes de que la Tierra sea demolida para dar paso a una autopista hiperespacial, Arthur Dent es rescatado por su amigo Ford Prefect, un investigador encubierto de la Guía del Autoestopista Galáctico. Juntos emprenden un hilarante viaje interestelar en busca de la respuesta al sentido de la vida, el universo y todo lo demás.'
+    },
+    {
+      isbn: '978-0441172719',
+      titulo: 'Dune',
+      autor: 'Frank Herbert',
+      editorial: 'Chilton Books',
+      anio_publicacion: 1965,
+      precio_venta: 26.50,
+      stock_total: 14,
+      stock_disponible: 14,
+      resumen: 'La monumental epopeya de ciencia ficción ambientada en el desértico planeta Arrakis, el único lugar del universo donde se produce la especia melange. Narra la historia de Paul Atreides, su ascenso entre los nativos Fremen y su destino mesiánico en medio de intrigas políticas interestelares.'
     }
   ];
 
@@ -137,8 +250,8 @@ async function seed() {
 
   console.log('[Seed] Sembrado completado con éxito.');
   console.log('Credenciales de acceso:');
-  console.log('  Admin:   admin@acmestore.com   / Admin123!');
-  console.log('  Cliente: cliente@acmestore.com / Cliente123!');
+  console.log('  Admin:   admin@librarian.com   / Admin123!');
+  console.log('  Cliente: cliente@librarian.com / Cliente123!');
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

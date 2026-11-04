@@ -47,7 +47,7 @@ function makeRequest(app, method, path, headers = {}, body = null) {
 }
 
 async function runTests() {
-  console.log('[TEST] Iniciando Suite de Pruebas de Integracion (Acme Store)...');
+  console.log('[TEST] Iniciando Suite de Pruebas de Integracion (Librarian)...');
 
   const { expressApp } = await BootstrapFactory.createApplication();
 
@@ -61,7 +61,7 @@ async function runTests() {
   // Test 2: Login Admin
   console.log('2. Verificando Login de Administrador...');
   const adminLogin = await makeRequest(expressApp, 'POST', '/api/auth/login', {}, {
-    email: 'admin@acmestore.com',
+    email: 'admin@librarian.com',
     password: 'Admin123!'
   });
   assert.strictEqual(adminLogin.status, 200);
@@ -73,7 +73,7 @@ async function runTests() {
   // Test 3: Login Cliente
   console.log('3. Verificando Login de Cliente...');
   const clientLogin = await makeRequest(expressApp, 'POST', '/api/auth/login', {}, {
-    email: 'cliente@acmestore.com',
+    email: 'cliente@librarian.com',
     password: 'Cliente123!'
   });
   assert.strictEqual(clientLogin.status, 200);
@@ -84,7 +84,7 @@ async function runTests() {
   // Test 4: Credenciales inválidas
   console.log('4. Verificando rechazo de credenciales inválidas...');
   const badLogin = await makeRequest(expressApp, 'POST', '/api/auth/login', {}, {
-    email: 'admin@acmestore.com',
+    email: 'admin@librarian.com',
     password: 'WrongPassword'
   });
   assert.strictEqual(badLogin.status, 401);

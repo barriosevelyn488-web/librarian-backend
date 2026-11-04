@@ -1,4 +1,4 @@
-# Acme Store - Backend REST API (100% POO, SOLID y Clean Architecture)
+# Librarian - Backend REST API (100% POO, SOLID y Clean Architecture)
 
 API REST empresarial para la administracion y operacion de libreria y biblioteca virtual: catalogo editorial con sinopsis completa, prestamos con control de inventario y devoluciones, ventas multilibro con comprobante fiscal y pasarela de pago, administracion de usuarios y control de acceso basado en roles (RBAC).
 
@@ -7,7 +7,7 @@ Construido estrictamente bajo **Programacion Orientada a Objetos (POO)** y los 5
 ---
 
 ## 1. Repositorio Frontend Conectado
-- **Frontend App:** [https://github.com/barriosevelyn488-web/acme-store-frontend](https://github.com/barriosevelyn488-web/acme-store-frontend)
+- **Frontend App:** [https://github.com/barriosevelyn488-web/librarian-frontend](https://github.com/barriosevelyn488-web/librarian-frontend)
 
 ---
 
