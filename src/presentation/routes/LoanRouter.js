@@ -20,7 +20,9 @@ class LoanRouter {
     // Rutas para clientes y admin
     this.router.post('/', this.loanController.createLoan);
     this.router.get('/my-loans', this.loanController.getMyLoans);
+    this.router.get('/my', this.loanController.getMyLoans);
     this.router.patch('/:id/return', this.loanController.returnLoan);
+    this.router.post('/:id/return', this.loanController.returnLoan);
 
     // Rutas de administración general
     this.router.get('/', this.roleMiddleware.handle(), this.loanController.getAllLoans);

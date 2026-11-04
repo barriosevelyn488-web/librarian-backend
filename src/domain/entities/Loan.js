@@ -36,6 +36,10 @@ class Loan {
   get fechaDevolucionReal() { return this._fechaDevolucionReal; }
   get estado() { return this._estado; }
   get notas() { return this._notas; }
+  get usuario() { return this._usuario || null; }
+  set usuario(val) { this._usuario = val; }
+  get libro() { return this._libro || null; }
+  set libro(val) { this._libro = val; }
 
   isDelayed() {
     if (this._estado === 'devuelto') return false;
@@ -94,7 +98,9 @@ class Loan {
       fechaDevolucionReal: this._fechaDevolucionReal,
       estado: this._estado,
       notas: this._notas,
-      isDelayed: this.isDelayed()
+      isDelayed: this.isDelayed(),
+      usuario: this.usuario || null,
+      libro: this.libro || null
     };
   }
 }
