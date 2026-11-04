@@ -1,5 +1,4 @@
 import DatabaseConnection from './DatabaseConnection.js';
-import DatabaseInitializer from './DatabaseInitializer.js';
 import BcryptPasswordHasher from '../security/BcryptPasswordHasher.js';
 import { fileURLToPath } from 'url';
 
@@ -255,7 +254,8 @@ async function seed() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  DatabaseInitializer.initialize()
+  import('./DatabaseInitializer.js')
+    .then(mod => mod.default.initialize())
     .then(() => seed())
     .catch(err => {
       console.error('Error en seed:', err);

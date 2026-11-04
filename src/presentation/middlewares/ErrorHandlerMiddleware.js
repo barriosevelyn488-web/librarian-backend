@@ -1,4 +1,5 @@
 import {
+  DomainError,
   ValidationError,
   NotFoundError,
   ConflictError,
@@ -19,7 +20,15 @@ class ErrorHandlerMiddleware {
         console.error(`[Error] ${err.name || 'Error'}: ${err.message}`);
       }
 
-      if (err instanceof ValidationError) {
+      if (err instanceof DomainError || err.statusCode || (err.name && err.name.endsWith('Error') && err.statusCode)) {
+        return res.status(err.statusCode || 400).json({
+          success: false,
+          error: err.message,
+          type: err.code || 'DOMAIN_ERROR'
+        });
+      }
+
+      if (err instanceof ValidationError || err.name === 'ValidationError') {
         return res.status(400).json({
           success: false,
           error: err.message,
@@ -27,7 +36,7 @@ class ErrorHandlerMiddleware {
         });
       }
 
-      if (err instanceof UnauthorizedError) {
+      if (err instanceof UnauthorizedError || err.name === 'UnauthorizedError') {
         return res.status(401).json({
           success: false,
           error: err.message,
@@ -35,7 +44,7 @@ class ErrorHandlerMiddleware {
         });
       }
 
-      if (err instanceof ForbiddenError) {
+      if (err instanceof ForbiddenError || err.name === 'ForbiddenError') {
         return res.status(403).json({
           success: false,
           error: err.message,
@@ -43,7 +52,7 @@ class ErrorHandlerMiddleware {
         });
       }
 
-      if (err instanceof NotFoundError) {
+      if (err instanceof NotFoundError || err.name === 'NotFoundError') {
         return res.status(404).json({
           success: false,
           error: err.message,
@@ -51,7 +60,7 @@ class ErrorHandlerMiddleware {
         });
       }
 
-      if (err instanceof ConflictError) {
+      if (err instanceof ConflictError || err.name === 'ConflictError') {
         return res.status(409).json({
           success: false,
           error: err.message,
@@ -59,7 +68,7 @@ class ErrorHandlerMiddleware {
         });
       }
 
-      if (err instanceof BusinessRuleError) {
+      if (err instanceof BusinessRuleError || err.name === 'BusinessRuleError') {
         return res.status(422).json({
           success: false,
           error: err.message,
@@ -70,7 +79,7 @@ class ErrorHandlerMiddleware {
       // Error interno del servidor no controlado
       return res.status(500).json({
         success: false,
-        error: 'Ocurrió un error interno en el servidor',
+        error: err.message || 'Ocurrió un error interno en el servidor',
         type: 'INTERNAL_SERVER_ERROR'
       });
     };
