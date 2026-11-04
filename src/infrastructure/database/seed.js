@@ -7,7 +7,6 @@ async function seed() {
   console.log('[Seed] Iniciando sembrado de datos iniciales para Acme Store...');
 
   const db = DatabaseConnection.getInstance();
-  await DatabaseInitializer.initialize();
 
   const hasher = new BcryptPasswordHasher();
   const adminPasswordHash = await hasher.hash('Admin123!');
@@ -143,10 +142,12 @@ async function seed() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  seed().catch(err => {
-    console.error('Error en seed:', err);
-    process.exit(1);
-  });
+  DatabaseInitializer.initialize()
+    .then(() => seed())
+    .catch(err => {
+      console.error('Error en seed:', err);
+      process.exit(1);
+    });
 }
 
 export default seed;

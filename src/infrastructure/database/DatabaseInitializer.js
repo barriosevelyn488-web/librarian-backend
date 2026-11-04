@@ -1,4 +1,5 @@
 import DatabaseConnection from './DatabaseConnection.js';
+import seed from './seed.js';
 
 class DatabaseInitializer {
   static async initialize() {
@@ -78,6 +79,12 @@ class DatabaseInitializer {
     `;
 
     await db.exec(ddl);
+
+    const checkUsers = await db.get('SELECT COUNT(*) as count FROM usuarios');
+    if (!checkUsers || checkUsers.count === 0) {
+      await seed();
+    }
+
     return true;
   }
 }
